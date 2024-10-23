@@ -1,0 +1,144 @@
+<header>
+    <div class="head-top">
+        <div class="head-left">
+            <img
+                src="../../public/kanban_brand-icon.svg"
+                width="50px"
+                height="40px"
+                alt="brand"
+            />
+        </div>
+        <div class="head-mid"></div>
+        <div class="head-right">
+            <img
+                src="../../public/filter-icon.svg"
+                width="30x"
+                height="30px"
+                alt="filter"
+            />
+            <img
+                src="../../public/bell-icon.svg"
+                width="30x"
+                height="30px"
+                alt="bell"
+            />
+            <img
+                class="user-profile"
+                src="../../public/profile-demo.jpg"
+                width="30x"
+                height="30px"
+                alt="user"
+            />
+        </div>
+    </div>
+    <nav class="slide-up"></nav>
+</header>
+
+<style>
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100vw;
+        min-height: 72px;
+        height: auto;
+        border-bottom: 2px solid black;
+        background-color: white;
+        overflow: hidden;
+    }
+
+    .head-top,
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 36px;
+        gap: 25px;
+    }
+
+    nav {
+        padding: 16px 36px;
+    }
+
+    .head-left {
+        width: max-content;
+    }
+
+    .head-mid {
+        display: block;
+        width: 100%;
+        max-width: 750px;
+    }
+
+    .head-right {
+        display: flex;
+        gap: 25px;
+        width: max-content;
+    }
+
+    img.user-profile {
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    @media screen and (max-width: 480px) {
+        header {
+            height: 72px;
+        }
+    }
+</style>
+
+<script>
+    const headSearch = document.querySelector(".head-mid");
+    const navBar = document.querySelector("nav");
+
+    const searchDiv = document.createElement("div");
+    searchDiv.classList.add("head-search");
+    searchDiv.innerHTML = `
+    <label for="site-search" class="search-area">
+        <button class="search-btn">
+            <img
+                src="../../public/search-icon.svg"
+                width="25px"
+                height="25px"
+                alt="search"
+            />
+        </button>
+            <input
+                type="search"
+                id="site-search"
+                name="search-task"
+                placeholder="Search Task"
+            />
+    </label>`;
+
+    const searchBtn = document.createElement("button");
+    searchBtn.classList.add("slide-btn", "search-btn");
+    searchBtn.innerHTML = `
+                <img
+                src="../../public/search-icon.svg"
+                width="25px"
+                height="25px"
+                alt="search"
+            />
+    `;
+
+    document.addEventListener("DOMContentLoaded", function () {
+        headSearch.innerHTML = ``;
+        navBar.innerHTML = ``;
+
+        if (window.innerWidth > 768) {
+            headSearch.appendChild(searchDiv);
+            navBar.style.display = "none";
+        }
+
+        if (window.innerWidth <= 768) {
+            headSearch.appendChild(searchBtn);
+            navBar.style.display = "block";
+            navBar.appendChild(searchDiv);
+        }
+    });
+
+    searchBtn.addEventListener("click", () => {});
+</script>
