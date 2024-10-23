@@ -8,7 +8,32 @@
                 alt="brand"
             />
         </div>
-        <div class="head-mid"></div>
+        <div class="head-mid head-search">
+            <!-- <button class="nav-btn">
+                <img
+                    src="../../public/search-icon.svg"
+                    width="25px"
+                    height="25px"
+                    alt="search"
+                />
+            </button> -->
+            <label for="site-search" class="search-area">
+                <button class="search-btn">
+                    <img
+                        src="../../public/search-icon.svg"
+                        width="25px"
+                        height="25px"
+                        alt="search"
+                    />
+                </button>
+                <input
+                    type="search"
+                    id="site-search"
+                    name="search-task"
+                    placeholder="Search Task"
+                />
+            </label>
+        </div>
         <div class="head-right">
             <img
                 src="../../public/filter-icon.svg"
@@ -71,6 +96,40 @@
         max-width: 750px;
     }
 
+    .head-search {
+        flex: 1;
+        justify-items: center;
+    }
+
+    .search-area {
+        display: flex;
+        align-items: center;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        padding: 8px 14px;
+        gap: 30px;
+        width: 100%;
+        height: 40px;
+    }
+
+    input {
+        width: 100%;
+        height: max-content;
+        font-size: 16px;
+    }
+
+    input::placeholder {
+        font-size: 15px;
+        color: #9c9c9c;
+    }
+
+    input,
+    button {
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+
     .head-right {
         display: flex;
         gap: 25px;
@@ -83,62 +142,26 @@
     }
 
     @media screen and (max-width: 480px) {
-        header {
-            height: 72px;
-        }
     }
 </style>
 
 <script>
-    const headSearch = document.querySelector(".head-mid");
+    const searchInput = document.querySelector("label");
+    const navBtn = document.querySelector(".nav-btn");
+    const headMid = document.querySelector(".head-mid");
     const navBar = document.querySelector("nav");
 
-    const searchDiv = document.createElement("div");
-    searchDiv.classList.add("head-search");
-    searchDiv.innerHTML = `
-    <label for="site-search" class="search-area">
-        <button class="search-btn">
-            <img
-                src="../../public/search-icon.svg"
-                width="25px"
-                height="25px"
-                alt="search"
-            />
-        </button>
-            <input
-                type="search"
-                id="site-search"
-                name="search-task"
-                placeholder="Search Task"
-            />
-    </label>`;
-
-    const searchBtn = document.createElement("button");
-    searchBtn.classList.add("slide-btn", "search-btn");
-    searchBtn.innerHTML = `
-                <img
-                src="../../public/search-icon.svg"
-                width="25px"
-                height="25px"
-                alt="search"
-            />
-    `;
-
-    document.addEventListener("DOMContentLoaded", function () {
-        headSearch.innerHTML = ``;
-        navBar.innerHTML = ``;
-
+    window.addEventListener("resize", function () {
         if (window.innerWidth > 768) {
-            headSearch.appendChild(searchDiv);
+            headMid.prepend(searchInput);
+            navBtn.style.display = "none";
             navBar.style.display = "none";
         }
 
         if (window.innerWidth <= 768) {
-            headSearch.appendChild(searchBtn);
+            navBar.prepend(searchInput);
             navBar.style.display = "block";
-            navBar.appendChild(searchDiv);
+            navBtn.style.display = "block";
         }
     });
-
-    searchBtn.addEventListener("click", () => {});
 </script>
