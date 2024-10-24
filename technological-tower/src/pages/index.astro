@@ -7,12 +7,27 @@ import Done from "../components/Done.astro";
 ---
 
 <BaseLayout>
-    <!-- <Title /> -->
     <main>
-        <dev class="col-group">
+        <div class="col-group">
             <ToDo />
             <InProgress />
             <Done />
-        </dev>
+        </div>
     </main>
 </BaseLayout>
+
+<script>
+    const main: any = document.querySelector("main");
+    const colGroup: any = document.querySelector(".col-group");
+    let x: number;
+
+    function handleMouse(e: any): void {
+        let scrollLength = e.clientX;
+        main.scroll(x + (scrollLength - x), 0);
+        x = scrollLength;
+    }
+
+    colGroup.addEventListener("mousemove", (e: any) => {
+        handleMouse(e);
+    });
+</script>
