@@ -5,13 +5,14 @@ import ToDo from "../components/ToDo.astro";
 import InProgress from "../components/InProgress.astro";
 import Done from "../components/Done.astro";
 ---
+
 <BaseLayout>
-    <Title />
+    <!-- <Title /> -->
     <main>
-        <ToDo />
-        <InProgress />
-        <Done />
+        <dev class="col-group">
+            <ToDo />
+            <InProgress />
+            <Done />
+        </dev>
     </main>
 </BaseLayout>
-
-
