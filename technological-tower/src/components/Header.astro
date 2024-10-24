@@ -3,8 +3,8 @@
         <div class="head-left">
             <img
                 src="../../public/kanban_brand-icon.svg"
-                width="50px"
-                height="40px"
+                width="40px"
+                height="32px"
                 alt="brand"
             />
         </div>
@@ -21,12 +21,13 @@
                 <button class="search-btn">
                     <img
                         src="../../public/search-icon.svg"
-                        width="25px"
-                        height="25px"
+                        width="20px"
+                        height="20px"
                         alt="search"
                     />
                 </button>
                 <input
+                    class="khula-regular"
                     type="search"
                     id="site-search"
                     name="search-task"
@@ -37,26 +38,26 @@
         <div class="head-right">
             <img
                 src="../../public/filter-icon.svg"
-                width="30x"
-                height="30px"
+                width="25x"
+                height="25px"
                 alt="filter"
             />
             <img
                 src="../../public/bell-icon.svg"
-                width="30x"
-                height="30px"
+                width="25x"
+                height="25px"
                 alt="bell"
             />
             <img
                 class="user-profile"
                 src="../../public/profile-demo.jpg"
-                width="30x"
-                height="30px"
+                width="25px"
+                height="25px"
                 alt="user"
             />
         </div>
     </div>
-    <nav class="slide-up"></nav>
+    <nav class=""></nav>
 </header>
 
 <style>
@@ -65,12 +66,12 @@
         flex-direction: column;
         justify-content: center;
         width: 100vw;
-        min-height: 72px;
-        height: auto;
+        height: fit-content;
         border-bottom: 2px solid black;
         background-color: white;
         overflow: hidden;
         z-index: 10;
+        padding: 16px 36px;
     }
 
     .head-top,
@@ -79,12 +80,11 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: 0 36px;
         gap: 25px;
     }
 
-    nav {
-        padding: 16px 36px;
+    .nav-padding {
+        padding: 16px 0;
     }
 
     .head-left {
@@ -111,16 +111,17 @@
         gap: 30px;
         width: 100%;
         height: 40px;
+        box-shadow: inset rgb(220, 220, 220) 0px 5px 5px 0px;
     }
 
     input {
         width: 100%;
         height: max-content;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     input::placeholder {
-        font-size: 15px;
+        font-size: 14px;
         color: #9c9c9c;
     }
 
@@ -144,22 +145,33 @@
 </style>
 
 <script>
-    const searchInput = document.querySelector("label");
-    const navBtn = document.querySelector(".nav-btn");
-    const headMid = document.querySelector(".head-mid");
-    const navBar = document.querySelector("nav");
+    const searchInput: any = document.querySelector("label");
+    const navBtn: any = document.querySelector(".nav-btn");
+    const headMid: any = document.querySelector(".head-mid");
+    const navBar: any = document.querySelector("nav");
 
-    window.addEventListener("resize", function () {
+    function checksiz() {
         if (window.innerWidth > 768) {
             headMid.prepend(searchInput);
-            navBtn.style.display = "none";
             navBar.style.display = "none";
+            navBtn.style.display = "none";
+            navBar.classList.remove("nav-padding");
+            navBar.style.padding = "0px 0px";
         }
 
         if (window.innerWidth <= 768) {
             navBar.prepend(searchInput);
+            navBar.style.padding = "";
+            navBar.classList.add("nav-padding");
             navBar.style.display = "block";
             navBtn.style.display = "block";
         }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        checksiz();
+    });
+    window.addEventListener("resize", (event) => {
+        checksiz();
     });
 </script>
