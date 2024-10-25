@@ -4,7 +4,7 @@
 
 <div class="column Todo">
     <div class="top">
-        <div class="title">
+        <div class="title khula-regular">
             <img
                 src="../../public/todo-icon.svg"
                 width="23px"
@@ -22,26 +22,12 @@
         />
     </div>
 
-    <div id="todo-area" class="list">
-        <div id="todo-inputs">
-            <input
-                type="text"
-                id="newtitle-for-todo"
-                placeholder="Task Title"
-            />
-            <input
-                type="text"
-                class="textArea"
-                id="newtask-for-todo"
-                placeholder="Task Description"
-            />
-            <button id="add-newtask-for-todo">+</button>
-        </div>
+    <div class="list" id="todo-area">
+        <div id="todo-area-list"></div>
     </div>
 
-    <div id="todo-area-list"></div>
     <div class="bottom">
-        <div class="add-item-byn">
+        <div class="add-item-btn khula-regular">
             <h4>+ add item</h4>
         </div>
     </div>
@@ -58,17 +44,23 @@
         .Todo {
             background-color: white;
         }
+
+        .title {
+            align-items: center;
+        }
+
+        h3 {
+            padding-top: 5px;
+        }
+
         .textArea {
             height: 95px;
         }
 
-        #todo-area {
-            border: 1px solid;
-            margin: 5% auto;
-            width: 95%;
+        #todo-area-list,
+        .list {
+            background-color: aquamarine;
             font-family: "Khula", sans-serif;
-            border: 1px solid;
-            border-radius: 5px;
             * {
                 font-size: 75%;
             }
@@ -87,7 +79,13 @@
         }
 
         #todo-area-list {
+            padding: 5% 5%;
             background-color: palegoldenrod;
+        }
+
+        h4 {
+            margin: 0 0;
+            font-size: 16px;
         }
     </style>
 
