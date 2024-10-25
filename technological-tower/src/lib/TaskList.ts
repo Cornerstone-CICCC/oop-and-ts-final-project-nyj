@@ -28,12 +28,7 @@ class TaskList {
         this.inProgress = CategoryInProgress
         this.done = CategoryDone
 
-        this.tasks = [
-            {id: 1, title: "HTML for header", description: "cord HTML", category: this.done },
-            {id: 2, title: "CSS for header", description: "Test functions", category: this.inProgress },
-            {id: 3, title: "HTML for footer", description: "cord HTML", category: this.inProgress },
-            {id: 4, title: "Test task", description: "Test functions", category: this.todo },
-        ]
+        this.tasks = []
     }
 
     add(newTask: Task) {
@@ -56,12 +51,15 @@ class TaskList {
         }
     }
 
-    delete(id: number){
-        const newTasks = this.tasks.filter((element) => {
-            return element.id !== id
-        })
-        this.tasks = newTasks
-        this.render()
+    delete(deleteTask: Task){
+        let result = window.confirm(`Do you delete this task?\r\n ${deleteTask.title}`);
+        if(result){
+            const newTasks = this.tasks.filter((element) => {
+                return element.id !== deleteTask.id
+            })
+            this.tasks = newTasks
+            this.render()
+        }
     }
 
     onDrag(event: DragEvent, taskId: number): void {
@@ -104,7 +102,7 @@ class TaskList {
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "deleteBtn"
-        deleteBtn.addEventListener('click', () => this.delete(task.id))
+        deleteBtn.addEventListener('click', () => this.delete(task))
         deleteBtn.innerHTML = "Delete"
 
         const updateBtn = document.createElement("button");
