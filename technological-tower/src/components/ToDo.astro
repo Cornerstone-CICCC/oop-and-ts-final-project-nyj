@@ -1,5 +1,4 @@
 ---
-import Card from "../components/Card.astro";
 ---
 
 <div class="column Todo">
@@ -25,15 +24,12 @@ import Card from "../components/Card.astro";
 
     <div id="todo-area" class="list">
         <div id="todo-inputs">
-        <input type="text" id="newtitle-for-todo" placeholder="Task Title"/>
-        <input type="text" class="textArea" id="newtask-for-todo" placeholder="Task Description"/>
-        <button id="add-newtask-for-todo">+</button>
+            <input type="text" id="newtitle-for-todo" placeholder="Task Title"/>
+            <input type="text" class="textArea" id="newtask-for-todo" placeholder="Task Description"/>
+            <button id="add-newtask-for-todo">+</button>
         </div>
-        
-
-        </div>
-        
-
+    </div>
+    <div id="todo-area-list"></div>
     <div class="bottom"></div>
     </div>
 
@@ -44,20 +40,13 @@ import Card from "../components/Card.astro";
     }
     .bottom{
         display: flex;
-        
-      
-        
-        
     }
 
     .Todo{
-        
         background-color: white;
-        
     }
     .textArea{
         height: 95px;
-        
     }
 
     #todo-area{
@@ -67,13 +56,8 @@ import Card from "../components/Card.astro";
         font-family: "Khula", sans-serif;
         border: 1px solid;
         border-radius: 5px;
-       
-
         *{
-            
             font-size: 75%;
-            
-           
         }
     }
 
@@ -89,18 +73,26 @@ import Card from "../components/Card.astro";
         }
     }
 
-   
-    
+    #todo-area-list{
+        background-color: palegoldenrod;
+    }
 </style>
 
 <script>
     import { tasksList } from "../lib/TaskList";
     import { isOpen } from '../lib/TaskList';
+    const todoArea = document.querySelector("#todo-area-list");
+
+    if (todoArea) {
+        todoArea.addEventListener('dragover', (event) => tasksList.onDragOver(event));
+        todoArea.addEventListener('drop', (event) => tasksList.onDrop(event, tasksList.todo));
+    }
+
     
         function addForTodo () {
             const newTitle = document.querySelector("#newtitle-for-todo").value; 
             const newTask = document.querySelector("#newtask-for-todo").value;
-            tasksList.add({id: 0, title: newTitle,description: newTask, category: "ToDo"})
+            tasksList.add({id: 0, title: newTitle,description: newTask, category: tasksList.todo})
         }
         
         document.querySelector("#add-newtask-for-todo").addEventListener("click", addForTodo);
