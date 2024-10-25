@@ -17,6 +17,8 @@ import Done from "../components/Done.astro";
 </BaseLayout>
 
 <script>
+    import { tasksList } from "../lib/TaskList";
+
     const main: any = document.querySelector("main");
     const colGroup: any = document.querySelector(".col-group");
     let x: number;
@@ -27,7 +29,7 @@ import Done from "../components/Done.astro";
         x = scrollLength;
     }
 
-    colGroup.addEventListener("mousemove", (e: any) => {
+    colGroup.addEventListener("drag", (e: any) => {
         handleMouse(e);
     });
 </script>
