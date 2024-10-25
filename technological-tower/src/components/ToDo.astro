@@ -2,7 +2,7 @@
 
 ---
 
-<div class="column Todo khula-regular">
+<div class="column Todo">
     <div class="top">
         <div class="title lexend-deca-normal">
             <img
@@ -46,13 +46,9 @@
         </div>
     </div>
 
-    <!-- <div id="todo-area-list"></div> -->
-    <div class="list" id="todo-area">
-        <div id="todo-area-list"></div>
-    </div>
-
+    <div id="todo-area-list"></div>
     <div class="bottom">
-        <div class="add-item-btn lexend-deca-normal">
+        <div class="add-item-byn">
             <h4>+ add item</h4>
         </div>
     </div>
@@ -65,6 +61,7 @@
         .bottom {
             display: flex;
         }
+
         .Todo {
             background-color: white;
         }
@@ -73,8 +70,9 @@
         }
 
         #todo-area {
-            background-color: blueviolet;
-            padding: 10px 10px 0 10px;
+            border: 1px solid;
+            margin: 5% auto;
+            width: 95%;
             font-family: "Khula", sans-serif;
             border: 1px solid;
             border-radius: 5px;
@@ -97,31 +95,6 @@
 
         #todo-area-list {
             background-color: palegoldenrod;
-
-            div {
-                border: 1px solid;
-                margin: 5%;
-                padding: 2%;
-                border-radius: 5px;
-
-                * {
-                    margin: 1px;
-                }
-
-                button {
-                    background: transparent;
-                    border: 1px solid;
-                    width: 20%;
-                    padding: 2%;
-                    margin: 1%;
-                    border-radius: 50px;
-                }
-                button:hover {
-                    background-color: black;
-                    color: white;
-                    cursor: pointer;
-                }
-            }
         }
 
         .modal-todo {
@@ -183,18 +156,13 @@
             line-height: 1.8;
             padding: 20px;
         }
-
-        .bottom {
-            display: flex;
-            align-items: center;
-        }
     </style>
 
     <script>
         import { tasksList } from "../lib/TaskList";
         import { isOpen } from "../lib/TaskList";
         const todoArea: any = document.querySelector("#todo-area-list");
-        const addBtn: any = document.querySelector(".add-item-btn");
+        const addBtn: any = document.querySelector(".add-item-byn");
         const modal: any = document.querySelector(".js-modal-todo");
         const close: any = document.querySelector(".js-modal-close-todo");
         const newTitle: any = document.querySelector("#newtitle-for-todo");
