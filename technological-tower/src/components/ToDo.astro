@@ -2,36 +2,108 @@
 import Card from "../components/Card.astro";
 ---
 
-<div>
-    <input type="text" id="newtitle-for-todo" placeholder="title" />
-    <input type="text" id="newtask-for-todo" />
-    <button id="add-newtask-for-todo">+</button>
-    <div id="todo-area" class="column"></div>
-    <!--todo-area addiing class "column" tor test -->
-</div>
+<div class="column Todo">
+    <div class="top">
+        <div class="title">
+            <img
+                src="../../public/todo-icon.svg"
+                width="23px"
+                height="23px"
+                alt="Done"
+            />
+            <h3>Todo</h3>
+        </div>
+        <img
+            class="col-dots"
+            src="../../public/dots-icon.svg"
+            
+            width="29px"
+            height="29px"
+            alt="col-dots"
+        />
+    </div>
+
+    
+        <div id="todo-inputs">
+        <input type="text" id="newtitle-for-todo" placeholder="Task Title"/>
+        <input type="text" class="textArea" id="newtask-for-todo" placeholder="Task Description"/>
+        <button id="add-newtask-for-todo">+</button>
+        </div>
+        <div id="todo-area">
+
+        </div>
+        
+
+    <div class="bottom"></div>
+    </div>
+
+<style>
+    .top,
+    .bottom {
+        background-color: palevioletred;
+    }
+    .bottom{
+        display: flex;
+        position:sticky;
+        z-index: 1;
+        
+        
+    }
+
+    .Todo{
+        
+        background-color: white;
+        
+    }
+    .textArea{
+        height: 95px;
+        
+    }
+
+    #todo-area{
+        border: 1px solid;
+        margin: 5% auto;
+        width: 95%;
+        font-family: "Khula", sans-serif;
+        border: 1px solid;
+        border-radius: 5px;
+       
+
+        *{
+            
+            font-size: 75%;
+            
+           
+        }
+    }
+
+    #todo-inputs{
+        margin: 5% auto;
+        width: 95%;
+        border: 1px solid;
+        display: flex;
+        flex-direction: column;
+        
+        *{
+            margin: 3%  2%;
+        }
+    }
+
+   
+    
+</style>
 
 <script>
     import { tasksList } from "../lib/TaskList";
-    import { isOpen } from "../lib/TaskList";
+    import { isOpen } from '../lib/TaskList';
+    
+        function addForTodo () {
+            const newTitle = document.querySelector("#newtitle-for-todo").value; 
+            const newTask = document.querySelector("#newtask-for-todo").value;
+            tasksList.add({id: 0, title: newTitle,description: newTask, category: "ToDo"})
+        }
+        
+        document.querySelector("#add-newtask-for-todo").addEventListener("click", addForTodo);
+    </script>
 
-    function addForTodo() {
-        const newTitle = document.querySelector("#newtitle-for-todo").value;
-        const newTask = document.querySelector("#newtask-for-todo").value;
-        tasksList.add({
-            id: 0,
-            title: newTitle,
-            description: newTask,
-            category: "ToDo",
-        });
-    }
 
-    document
-        .querySelector("#add-newtask-for-todo")
-        .addEventListener("click", addForTodo);
-</script>
-
-<style>
-    #todo-area {
-        background-color: palevioletred;
-    }
-</style>

@@ -97,9 +97,10 @@ class TaskList {
         deleteBtn.innerHTML = "Delete"
 
         const updateBtn = document.createElement("button");
-        updateBtn.className = "deleteBtn"
+        updateBtn.className = "updateBtn"
         updateBtn.addEventListener('click', () => this.update(task))
         updateBtn.innerHTML = "Update"
+        
 
         taskDiv.appendChild(title)
         taskDiv.appendChild(description)
