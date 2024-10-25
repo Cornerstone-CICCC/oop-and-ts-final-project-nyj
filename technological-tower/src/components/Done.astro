@@ -18,9 +18,7 @@
         />
     </div>
 
-    <div class="list">
-        <div id="done-area"></div>
-    </div>
+    <div id="done-area" class="list"></div>
 
     <div class="bottom"></div>
 </div>
@@ -31,7 +29,7 @@
         background-color: #ffaa4a;
     }
 
-    #done-area{
+    #done-area {
         width: 100%;
         height: 100%;
         background-color: palegoldenrod;
@@ -42,9 +40,12 @@
     import { tasksList } from "../lib/TaskList";
     const doneArea = document.querySelector("#done-area");
 
-if (doneArea) {
-    doneArea.addEventListener('dragover', (event) => tasksList.onDragOver(event));
-    doneArea.addEventListener('drop', (event) => tasksList.onDrop(event, tasksList.done));
-}
+    if (doneArea) {
+        doneArea.addEventListener("dragover", (event) =>
+            tasksList.onDragOver(event),
+        );
+        doneArea.addEventListener("drop", (event) =>
+            tasksList.onDrop(event, tasksList.done),
+        );
+    }
 </script>
-
