@@ -51,15 +51,33 @@ class TaskList {
         }
     }
 
+    comfirmDelete(task: Task){
+        const modal: any = document.querySelector(".js-modal-delete")
+        const deleteBtn: any = document.querySelector("#confirm-delete")
+        const cancelBtn: any = document.querySelector("#cancel-delete")
+        modal.classList.add('is-active');
+        deleteBtn.addEventListener("click", () => {
+            this.delete(task)
+            modal.classList.remove('is-active');
+        })
+        cancelBtn.addEventListener("click", () => {
+            modal.classList.remove('is-active');
+        })
+    }
     delete(deleteTask: Task){
-        let result = window.confirm(`Do you delete this task?\r\n ${deleteTask.title}`);
-        if(result){
-            const newTasks = this.tasks.filter((element) => {
-                return element.id !== deleteTask.id
-            })
-            this.tasks = newTasks
-            this.render()
-        }
+        const newTasks = this.tasks.filter((element) => {
+            return element.id !== deleteTask.id
+        })
+        this.tasks = newTasks
+        this.render()
+        // let result = window.confirm(`Do you delete this task?\r\n ${deleteTask.title}`);
+        // if(result){
+        //     const newTasks = this.tasks.filter((element) => {
+        //         return element.id !== deleteTask.id
+        //     })
+        //     this.tasks = newTasks
+        //     this.render()
+        // }
     }
 
     onDrag(event: DragEvent, taskId: number): void {
@@ -102,7 +120,7 @@ class TaskList {
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "deleteBtn"
-        deleteBtn.addEventListener('click', () => this.delete(task))
+        deleteBtn.addEventListener('click', () => this.comfirmDelete(task))
         deleteBtn.innerHTML = "Delete"
 
         const updateBtn = document.createElement("button");
