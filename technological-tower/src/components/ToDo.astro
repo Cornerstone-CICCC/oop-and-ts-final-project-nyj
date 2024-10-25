@@ -22,8 +22,28 @@
         />
     </div>
 
-    <div class="list" id="todo-area">
-        <div id="todo-area-list"></div>
+    <div class="modal-todo js-modal-todo">
+        <div class="modal-container-todo">
+            <div class="modal-close-todo js-modal-close-todo">×</div>
+            <div class="modal-content-todo">
+                <div id="todo-area" class="list">
+                    <div id="todo-inputs">
+                        <input
+                            type="text"
+                            id="newtitle-for-todo"
+                            placeholder="Task Title"
+                        />
+                        <input
+                            type="text"
+                            class="textArea"
+                            id="newtask-for-todo"
+                            placeholder="Task Description"
+                        />
+                        <button id="add-newtask-for-todo">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="bottom">
@@ -57,9 +77,10 @@
             height: 95px;
         }
 
-        #todo-area-list,
-        .list {
-            background-color: aquamarine;
+        #todo-area {
+            border: 1px solid;
+            margin: 5% auto;
+            width: 95%;
             font-family: "Khula", sans-serif;
             * {
                 font-size: 75%;
@@ -82,21 +103,17 @@
             padding: 5% 5%;
             background-color: palegoldenrod;
         }
-
-        .add-item-btn {
-            align-self: center;
-        }
-
-        h4 {
-            margin: 0;
-            font-size: 16px;
-        }
     </style>
 
     <script>
         import { tasksList } from "../lib/TaskList";
         import { isOpen } from "../lib/TaskList";
-        const todoArea = document.querySelector("#todo-area-list");
+        const todoArea: any = document.querySelector("#todo-area-list");
+        const addBtn: any = document.querySelector(".add-item-byn");
+        const modal: any = document.querySelector(".js-modal-todo");
+        const close: any = document.querySelector(".js-modal-close-todo");
+        const newTitle: any = document.querySelector("#newtitle-for-todo");
+        const newTask: any = document.querySelector("#newtask-for-todo");
 
         if (todoArea) {
             todoArea.addEventListener("dragover", (event) =>
@@ -108,18 +125,37 @@
         }
 
         function addForTodo() {
-            const newTitle = document.querySelector("#newtitle-for-todo").value;
-            const newTask = document.querySelector("#newtask-for-todo").value;
+            const newTitleValue = newTitle.value;
+            const newTaskVlue = newTask.value;
             tasksList.add({
                 id: 0,
-                title: newTitle,
-                description: newTask,
+                title: newTitleValue,
+                description: newTaskVlue,
                 category: tasksList.todo,
             });
+            newTitle.value = "";
+            newTask.value = "";
+            modal.classList.remove("is-active");
+        }
+
+        function showNewTask() {
+            modal.classList.add("is-active");
         }
 
         document
             .querySelector("#add-newtask-for-todo")
             .addEventListener("click", addForTodo);
+        addBtn?.addEventListener("click", showNewTask);
+
+        close.addEventListener("click", () => {
+            modal.classList.remove("is-active");
+        });
+
+        function modalOut(e: any) {
+            if (e.target == modal) {
+                modal.classList.remove("is-active");
+            }
+        }
+        addEventListener("click", modalOut);
     </script>
 </div>
