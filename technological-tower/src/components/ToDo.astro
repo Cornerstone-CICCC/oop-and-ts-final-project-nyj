@@ -2,7 +2,7 @@
 
 ---
 
-<div class="column Todo">
+<div class="column Todo khula-regular">
     <div class="top">
         <div class="title lexend-deca-normal">
             <img
@@ -65,7 +65,6 @@
         .bottom {
             display: flex;
         }
-
         .Todo {
             background-color: white;
         }
@@ -77,6 +76,8 @@
             background-color: blueviolet;
             padding: 10px 10px 0 10px;
             font-family: "Khula", sans-serif;
+            border: 1px solid;
+            border-radius: 5px;
             * {
                 font-size: 75%;
             }
@@ -96,6 +97,31 @@
 
         #todo-area-list {
             background-color: palegoldenrod;
+
+            div {
+                border: 1px solid;
+                margin: 5%;
+                padding: 2%;
+                border-radius: 5px;
+
+                * {
+                    margin: 1px;
+                }
+
+                button {
+                    background: transparent;
+                    border: 1px solid;
+                    width: 20%;
+                    padding: 2%;
+                    margin: 1%;
+                    border-radius: 50px;
+                }
+                button:hover {
+                    background-color: black;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
         }
 
         .modal-todo {
