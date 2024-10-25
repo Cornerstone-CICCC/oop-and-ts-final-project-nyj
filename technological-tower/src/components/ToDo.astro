@@ -1,5 +1,5 @@
 ---
-import Card from "../components/Card.astro";
+
 ---
 
 <div class="column Todo">
@@ -16,7 +16,6 @@ import Card from "../components/Card.astro";
         <img
             class="col-dots"
             src="../../public/dots-icon.svg"
-            
             width="29px"
             height="29px"
             alt="col-dots"
@@ -25,16 +24,26 @@ import Card from "../components/Card.astro";
 
     <div id="todo-area" class="list">
         <div id="todo-inputs">
-        <input type="text" id="newtitle-for-todo" placeholder="Task Title"/>
-        <input type="text" class="textArea" id="newtask-for-todo" placeholder="Task Description"/>
-        <button id="add-newtask-for-todo">+</button>
+            <input
+                type="text"
+                id="newtitle-for-todo"
+                placeholder="Task Title"
+            />
+            <input
+                type="text"
+                class="textArea"
+                id="newtask-for-todo"
+                placeholder="Task Description"
+            />
+            <button id="add-newtask-for-todo">+</button>
         </div>
-        
+    </div>
 
+    <div id="todo-area-list"></div>
+    <div class="bottom">
+        <div class="add-item-byn">
+            <h4>+ add item</h4>
         </div>
-        
-
-    <div class="bottom"></div>
     </div>
 
 <style>
@@ -54,50 +63,62 @@ import Card from "../components/Card.astro";
         height: 95px;     
     }
 
-    #todo-area{
-        border: 1px solid;
-        margin: 5% auto;
-        width: 95%;
-        font-family: "Khula", sans-serif;
-        border: 1px solid;
-        border-radius: 5px;
-       
-
-        *{
-            
-            font-size: 75%;
-            
-           
+        #todo-area {
+            border: 1px solid;
+            margin: 5% auto;
+            width: 95%;
+            font-family: "Khula", sans-serif;
+            border: 1px solid;
+            border-radius: 5px;
+            * {
+                font-size: 75%;
+            }
         }
-    }
 
-    #todo-inputs{
-        margin: 5% auto;
-        width: 95%;
-        border: 1px solid;
-        display: flex;
-        flex-direction: column;
-        
-        *{
-            margin: 3%  2%;
+        #todo-inputs {
+            margin: 5% auto;
+            width: 95%;
+            border: 1px solid;
+            display: flex;
+            flex-direction: column;
+
+            * {
+                margin: 3% 2%;
+            }
         }
-    }
 
-   
-    
-</style>
+        #todo-area-list {
+            background-color: palegoldenrod;
+        }
+    </style>
 
-<script>
-    import { tasksList } from "../lib/TaskList";
-    import { isOpen } from '../lib/TaskList';
-    
-        function addForTodo () {
-            const newTitle = document.querySelector("#newtitle-for-todo").value; 
+    <script>
+        import { tasksList } from "../lib/TaskList";
+        import { isOpen } from "../lib/TaskList";
+        const todoArea = document.querySelector("#todo-area-list");
+
+        if (todoArea) {
+            todoArea.addEventListener("dragover", (event) =>
+                tasksList.onDragOver(event),
+            );
+            todoArea.addEventListener("drop", (event) =>
+                tasksList.onDrop(event, tasksList.todo),
+            );
+        }
+
+        function addForTodo() {
+            const newTitle = document.querySelector("#newtitle-for-todo").value;
             const newTask = document.querySelector("#newtask-for-todo").value;
-            tasksList.add({id: 0, title: newTitle,description: newTask, category: "ToDo"})
+            tasksList.add({
+                id: 0,
+                title: newTitle,
+                description: newTask,
+                category: tasksList.todo,
+            });
         }
-        
-        document.querySelector("#add-newtask-for-todo").addEventListener("click", addForTodo);
+
+        document
+            .querySelector("#add-newtask-for-todo")
+            .addEventListener("click", addForTodo);
     </script>
-
-
+</div>

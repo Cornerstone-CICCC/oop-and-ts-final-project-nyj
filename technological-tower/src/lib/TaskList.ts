@@ -1,8 +1,13 @@
-import { atom } from 'nanostores';
+import { atom, map } from 'nanostores';
+import type InProgress from '../components/InProgress.astro';
 
-const todoArea = document.querySelector("#todo-area");
+const todoArea = document.querySelector("#todo-area-list");
 const inProgressArea = document.querySelector("#inprogress-area");
 const doneArea = document.querySelector("#done-area");
+
+const categoryTodo = "To Do"
+const CategoryInProgress = "In Progress"
+const CategoryDone = "Done"
 
 type Task = {
     id: number
@@ -13,43 +18,42 @@ type Task = {
 
 class TaskList {
     static tasksId = 0
+    todo: string
+    inProgress: string
+    done: string
     tasks: Task[]
 
     constructor() {
-        this.tasks = []
+        this.todo = categoryTodo
+        this.inProgress = CategoryInProgress
+        this.done = CategoryDone
+
+        this.tasks = [
+            {id: 1, title: "HTML for header", description: "cord HTML", category: this.done },
+            {id: 2, title: "CSS for header", description: "Test functions", category: this.inProgress },
+            {id: 3, title: "HTML for footer", description: "cord HTML", category: this.inProgress },
+            {id: 4, title: "Test task", description: "Test functions", category: this.todo },
+        ]
     }
 
     add(newTask: Task) {
         TaskList.tasksId ++
         newTask.id = TaskList.tasksId
         this.tasks.push(newTask)
-        
-        switch(newTask.category){
-            case "ToDo":
-                
-                todoArea.appendChild(this.createTask(newTask))
-                break;
-            case "InProgress":
-                
-                inProgressArea.appendChild(this.createTask(newTask))
-                break;
 
-            case "Done":
-                
-                doneArea.appendChild(this.createTask(newTask))
-                break;
-        }
+        this.render()
     }
 
     update(updatedTask: Task) {
-        this.tasks.forEach((element) => {
-            if(element.id === updatedTask.id){
-                element.title = "Updated title"
-                element.description = "Updated task"
-            }
-        })
-        console.log(this.tasks)
-        this.render()
+        let result = prompt(`${updatedTask.title}`, `${updatedTask.description}`);
+        if(result !== null && updatedTask.description !== result){
+            this.tasks.forEach((element) => {
+                if(element.id === updatedTask.id){
+                    element.description = result
+                }
+            })
+            this.render()
+        }
     }
 
     delete(id: number){
@@ -57,34 +61,41 @@ class TaskList {
             return element.id !== id
         })
         this.tasks = newTasks
-        console.log(this.tasks)
         this.render()
     }
 
-    allowDrop(ev: any) {
-        ev.preventDefault();
+    onDrag(event: DragEvent, taskId: number): void {
+        event.dataTransfer?.setData('taskId', taskId.toString());
     }
     
-    drag(ev: any) {
-        ev.dataTransfer.setData("text", ev.target.id);
+    onDrop(event: DragEvent, newCategory: string): void {
+        event.preventDefault();
+    
+        const taskId = event.dataTransfer?.getData('taskId');
+        if (taskId) {
+            const task = this.tasks.find(task => task.id === parseInt(taskId));
+        if (task) {
+            task.category = newCategory;
+            this.render();
+        }
+        }
     }
     
-    drop(ev: any) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
+    onDragOver(event: DragEvent): void {
+        event.preventDefault();
     }
 
     searchTask(keyword: string) {
         const resultTasks = this.tasks.filter((element) => {
-
+            return element.title.includes(keyword)
         })
     }
 
     createTask(task: Task){
         const taskDiv = document.createElement("div");
-        taskDiv.setAttribute("draggable", "true")
-        taskDiv.setAttribute("ondragstart", "drag(event)")
+        taskDiv.className = "task-card"
+        taskDiv.draggable = true;
+        taskDiv.addEventListener('dragstart', (event) => this.onDrag(event, task.id));
 
         const title = document.createElement("h3")
         title.innerHTML = task.title
@@ -100,7 +111,6 @@ class TaskList {
         updateBtn.className = "updateBtn"
         updateBtn.addEventListener('click', () => this.update(task))
         updateBtn.innerHTML = "Update"
-        
 
         taskDiv.appendChild(title)
         taskDiv.appendChild(description)
@@ -113,17 +123,18 @@ class TaskList {
         todoArea.innerHTML = ""
         inProgressArea.innerHTML = ""
         doneArea.innerHTML = ""
+        console.log(this.tasks)
 
         this.tasks.forEach((element, index) =>{
             switch(element.category){
-                case "ToDo":
+                case categoryTodo:
                     todoArea.appendChild(this.createTask(element))
                     break;
-                case "InProgress":
+                case CategoryInProgress:
                     inProgressArea.appendChild(this.createTask(element))
                     break;
     
-                case "Done":
+                case CategoryDone:
                     doneArea.appendChild(this.createTask(element))
                     break;
             }
@@ -133,3 +144,6 @@ class TaskList {
 
 export const tasksList = new TaskList()
 export const isOpen = atom(false);
+export const cartItems = map({});
+
+tasksList.render()
