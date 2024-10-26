@@ -74,33 +74,46 @@ main::-webkit-scrollbar {
 
 }
 
-    .task-card {
-    
-        border: 1px solid;
-        margin: 5%;
-        padding:2%;
-        border-radius: 5px;
+.task-card {
+    color: #494949;
+    border: 1px solid;
+    padding: 10px 18px;
+    border-radius: 10px;
 
-        *{
-            margin: 1px;
-            
-        }
-        button{
-            background: transparent;
-            border: 1px solid;
-            width: 20%;
-            padding: 2%;
-            margin: 1%;
-            border-radius: 50px;
-
-        }
-        button:hover{
-            background-color: black;
-            color: white;
-            cursor: pointer;
-            transition:0.3s
-        }
+    h3 {
+        font-size: 16px;
+        padding-left: 5px;
     }
+
+    p {
+        word-wrap: break-word;
+        font-size: 12px;
+        padding-left: 5px;
+    }
+
+    * {
+        margin: 1px;
+    }
+
+    button {
+        background: transparent;
+        border: 1px solid;
+        width: fit-content;
+        padding: 2%;
+        margin: 1%;
+        color: #494949;
+        border: 1 solid #494949;
+        border-radius: 50px;
+        font-size: 10px;
+    }
+
+    button:hover {
+        background-color: #494949;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s
+    }
+}
 
 
 
